@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartContactManager.Data;
+using SmartContactManager.Data.RepositoryImplementations;
+using SmartContactManager.Data.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,8 @@ namespace SmartContactManager
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
                 Configuration.GetConnectionString("MyConn")));
             services.AddControllers();
+
+            services.AddScoped<IAccountRepository, SQLAccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
