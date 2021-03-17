@@ -21,6 +21,12 @@ namespace SmartContactManager.Data.RepositoryImplementations
             return group;
         }
 
+        public void AddGroupContacts(IEnumerable<GroupContact> groupContacts)
+        {
+            db.GroupContacts.AddRange(groupContacts);
+            db.SaveChanges();
+        }
+
         public void DeleteGroup(Group group)
         {
             db.Groups.Remove(group);
@@ -38,11 +44,20 @@ namespace SmartContactManager.Data.RepositoryImplementations
             return group;
         }
 
+        public IEnumerable<GroupContact> GetGroupContactsByGroupId(int grpId)
+        {
+            return db.GroupContacts.Where(gc => gc.GroupId == grpId).ToList();
+        }
+
         public void UpdateGroup(Group group)
         {
             var grp = db.Groups.Attach(group);
             grp.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
+        }
+        public Contact GetContact(int? id)
+        {
+            return db.Contacts.Find(id);
         }
     }
 }
