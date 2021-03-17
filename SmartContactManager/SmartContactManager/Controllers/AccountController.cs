@@ -56,14 +56,14 @@ namespace SmartContactManager.Controllers
                 return BadRequest();
             }
 
-            User updatedUser = new User()
+            User updatedUser = _accountRepository.FindUserById(id);
+            if (updatedUser == null)
             {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Password = user.Password,
-                PhoneNumber = user.PhoneNumber
-            };
+                return Ok(new { status = 401, isSuccess = false, message = "User not found" });
+            }
+
+            updatedUser.Name = user.Name;
+            updatedUser.PhoneNumber = user.PhoneNumber;
 
             try
             {
