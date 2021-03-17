@@ -34,6 +34,7 @@ namespace SmartContactManager
             services.AddControllers();
 
             services.AddScoped<IGroupRepository, SQLGroupRepository>();
+            services.AddScoped<IAccountRepository, SQLAccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
