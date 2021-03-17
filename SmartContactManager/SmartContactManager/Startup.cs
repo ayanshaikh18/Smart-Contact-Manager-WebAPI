@@ -33,6 +33,7 @@ namespace SmartContactManager
                 Configuration.GetConnectionString("MyConn")));
             services.AddControllers();
 
+            services.AddScoped<IGroupRepository, SQLGroupRepository>();
             services.AddScoped<IAccountRepository, SQLAccountRepository>();
         }
 
