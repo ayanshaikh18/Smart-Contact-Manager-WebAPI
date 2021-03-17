@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Smart_Contact_Manager.Models;
+using SmartContactManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
