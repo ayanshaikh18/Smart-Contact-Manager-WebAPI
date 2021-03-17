@@ -22,22 +22,17 @@ namespace SmartContactManager.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
 
-            modelBuilder.Entity<GroupContact>()
-                .HasKey(gc => new { gc.ContactId, gc.GroupId });
+            modelBuilder.Entity<Group>()
+            .HasIndex(g => g.Name)
+            .IsUnique();
 
-            modelBuilder.Entity<GroupContact>()
-                .HasOne<Group>(gc => gc.Group)
-                .WithMany(g => g.GroupContacts)
-                .HasForeignKey(gc => gc.GroupId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-            modelBuilder.Entity<GroupContact>()
-                .HasOne<Contact>(gc => gc.Contact)
-                .WithMany(c => c.GroupContacts)
-                .HasForeignKey(gc => gc.ContactId)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Contact>()
+            .HasIndex(c => c.PhoneNumber)
+            .IsUnique();
         }
     }
 }
