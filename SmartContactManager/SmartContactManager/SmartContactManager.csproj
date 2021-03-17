@@ -14,8 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\RepositoryImplementations\" />
-    <Folder Include="Data\RepositoryInterfaces\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
