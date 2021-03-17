@@ -12,36 +12,36 @@ namespace SmartContactManager.Data.RepositoryImplementations
 
     public class SQLAccountRepository: IAccountRepository
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
         public SQLAccountRepository(AppDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         public User FindUserById(int id)
         {
-            return context.Users.Where(u => u.Id == id).FirstOrDefault();
+            return _context.Users.Where(u => u.Id == id).FirstOrDefault();
         }
 
         public User GetUserByUsername(string username)
         {
-            return context.Users.Where(u => u.Email == username).FirstOrDefault();
+            return _context.Users.Where(u => u.Email == username).FirstOrDefault();
         }
 
         public User GetUserByUsernameAndPassword(string username, string password)
         {
-            return context.Users.Where(u => u.Email == username && u.Password == password).FirstOrDefault();
+            return _context.Users.Where(u => u.Email == username && u.Password == password).FirstOrDefault();
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            return context.Users.ToList();
+            return _context.Users.ToList();
         }
 
         public User UpdateUser(User user)
         {
-            context.Entry(user).State = EntityState.Modified;
-            context.SaveChanges();
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
             return user;
         }
 
@@ -54,8 +54,8 @@ namespace SmartContactManager.Data.RepositoryImplementations
                 Password = user.Password,
                 PhoneNumber = user.PhoneNumber,
             };
-            context.Users.Add(newUser);
-            context.SaveChanges();
+            _context.Users.Add(newUser);
+            _context.SaveChanges();
             return newUser;
         }
     }
