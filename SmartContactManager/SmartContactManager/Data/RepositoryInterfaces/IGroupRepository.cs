@@ -16,6 +16,5 @@ namespace SmartContactManager.Data.RepositoryInterfaces
 
         void AddGroupContacts(IEnumerable<GroupContact> groupContacts);
         IEnumerable<GroupContact> GetGroupContactsByGroupId(int grpId);
-        Contact GetContact(int? id);
     }
 }

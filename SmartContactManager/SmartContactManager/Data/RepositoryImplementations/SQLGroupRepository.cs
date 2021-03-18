@@ -55,9 +55,5 @@ namespace SmartContactManager.Data.RepositoryImplementations
             grp.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
         }
-        public Contact GetContact(int? id)
-        {
-            return db.Contacts.Find(id);
-        }
     }
 }
