@@ -94,14 +94,17 @@ namespace SmartContactManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_accountRepository.GetUserByUsername(user.Email) != null)
+            User newUser;
+            try
             {
-                string message = "User already exist";
+                newUser = _accountRepository.CreateUser(user);
+            }
+            catch (DbUpdateException Ex)
+            {
+                string message = "User already exist with given email";
                 ModelState.AddModelError("Error", message);
                 return BadRequest(ModelState);
             }
-
-            User newUser = _accountRepository.CreateUser(user);
             return Ok(newUser);
         }
 
