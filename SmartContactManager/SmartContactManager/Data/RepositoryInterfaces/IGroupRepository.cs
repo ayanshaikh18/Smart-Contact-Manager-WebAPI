@@ -13,5 +13,8 @@ namespace SmartContactManager.Data.RepositoryInterfaces
         IEnumerable<Group> GetAllGroups();
         void UpdateGroup(Group group);
         void DeleteGroup(Group group);
+
+        void AddGroupContacts(IEnumerable<GroupContact> groupContacts);
+        IEnumerable<GroupContact> GetGroupContactsByGroupId(int grpId);
     }
 }
