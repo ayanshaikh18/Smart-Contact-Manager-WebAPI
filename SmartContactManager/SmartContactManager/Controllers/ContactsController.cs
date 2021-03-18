@@ -67,7 +67,7 @@ namespace SmartContactManager.Controllers
             User user = _accountRepository.FindUserById((int)contact.UserId);
             if (user == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "User not found" });
+                return StatusCode(401, (new { status = 401, isSuccess = false, message = "User not found" }));
             }
 
             Contact newContact;
@@ -104,13 +104,13 @@ namespace SmartContactManager.Controllers
             Contact updatedContact = _contactRepository.GetContactById(id);
             if (updatedContact == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "Contact not found" });
+                return StatusCode(401, (new { status = 401, isSuccess = false, message = "Contact not found" }));
             }
             User user = _accountRepository.FindUserById((int)contact.UserId);
             bool doesBelongsToUser = _contactRepository.DoesBelongsToUser(updatedContact, (int)contact.UserId);
             if (user == null || !doesBelongsToUser)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "Access Denied" });
+                return StatusCode(401, (new { status = 401, isSuccess = false, message = "Access Denied" }));
             }
 
             updatedContact.Name = contact.Name;

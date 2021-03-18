@@ -55,5 +55,15 @@ namespace SmartContactManager.Data.RepositoryImplementations
             grp.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
         }
+
+        public void DeleteGroupContact(int id)
+        {
+            var grpContact = db.GroupContacts.Find(id);
+            if (grpContact != null)
+            {
+                db.GroupContacts.Remove(grpContact);
+                db.SaveChanges();
+            }
+        }
     }
 }

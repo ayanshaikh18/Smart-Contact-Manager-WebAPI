@@ -17,11 +17,13 @@ namespace SmartContactManager.Controllers
     {
         private readonly IGroupRepository _groupRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IContactRepository _contactRepository;
 
-        public GroupController(IGroupRepository groupRepository, IAccountRepository accountRepository)
+        public GroupController(IGroupRepository groupRepository, IAccountRepository accountRepository,IContactRepository contactRepository)
         {
             this._groupRepository = groupRepository;
             this._accountRepository = accountRepository;
+            this._contactRepository = contactRepository;
         }
 
         [HttpGet]
@@ -112,6 +114,11 @@ namespace SmartContactManager.Controllers
         {
             if (model != null && ModelState.IsValid)
             {
+                var grp = _groupRepository.GetGroupById(model.GroupId??0);
+
+                if(grp == null)
+                    return StatusCode(401, (new { status = 401, isSuccess = false, message = "Group not found" }));
+
                 IList<GroupContact> groupContacts = new List<GroupContact>();
                 foreach (var contactId in model.ContactIds)
                 {
@@ -128,18 +135,28 @@ namespace SmartContactManager.Controllers
             return BadRequest();
         }
 
-        /*[HttpGet]
+        [HttpGet]
         [Route("/api/groups/getGroupContacts/{groupId}")]
-        public ActionResult<Contact> GetGroupContacts(int groupId)
+        public ActionResult<GroupContactViewModel> GetGroupContacts(int groupId)
         {
             var groupContacts = _groupRepository.GetGroupContactsByGroupId(groupId);
-            IList<Contact> contacts = new List<Contact>();
+            IList<GroupContactViewModel> grpContacts = new List<GroupContactViewModel>();
             foreach(var grpContact in groupContacts)
             {
-                var contact = _groupRepository.GetContact(grpContact.ContactId);
-                contacts.Add(contact);
+                var model = new GroupContactViewModel();
+                model.Contact= _contactRepository.GetContactById(grpContact.ContactId??0);
+                model.Id = grpContact.Id;
+                grpContacts.Add(model);
             }
-            return Ok(contacts);
-        }*/
+            return Ok(grpContacts);
+        }
+
+        [HttpDelete]
+        [Route("/api/groups/deleteGroupContact/{id}")]
+        public ActionResult DeleteGroupContact(int id)
+        {
+            _groupRepository.DeleteGroupContact(id);
+            return Ok();
+        }
     }
 }
