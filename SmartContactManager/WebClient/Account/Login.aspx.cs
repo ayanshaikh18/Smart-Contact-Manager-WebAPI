@@ -20,6 +20,30 @@ namespace WebClient.Account
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (!IsPostBack)
+            {
+                if (Session["UserID"] != null)
+                {
+                    this.Context.Items.Add("ErrorMessage", "Access Denied! Please Login");
+                    Response.Redirect("~/Dashboard.aspx");
+                }
+                string Success_Message = (string)this.Context.Items["SuccessMessage"];
+                string Error_Message = (string)this.Context.Items["ErrorMessage"];
+                if (Success_Message != null)
+                {
+                    SuccessMessage.Visible = true;
+                    SuccessMessage.Text = Success_Message;
+                    this.Context.Items.Remove("SuccessMessage");
+                    ErrorMessage.Visible = false;
+                }
+                if (Error_Message != null)
+                {
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.Text = Error_Message;
+                    this.Context.Items.Remove("ErrorMessage");
+                    SuccessMessage.Visible = false;
+                }
+            }
         }
 
         protected async void SubmitButton_Click1(object sender, EventArgs e)

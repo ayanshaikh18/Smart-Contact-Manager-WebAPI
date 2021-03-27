@@ -33,12 +33,13 @@ namespace WebClient.Account
             var serializeduser = JsonConvert.SerializeObject(user);
             var content = new StringContent(serializeduser, Encoding.UTF8, "application/json");
             var result = await client.PostAsync("https://localhost:44373/api/account/register", content);
-        
-            // validation of input remains =--> Badrequest in Register api
-            if(result.IsSuccessStatusCode)
+            RootObject response = JsonConvert.DeserializeObject<RootObject>(await result.Content.ReadAsStringAsync());
+
+            // validation of input remains ---> Badrequest in Register api
+            //model state validation remaining
+            if (response.isSuccess)
             {
-                var JsonData = JsonConvert.DeserializeObject(await result.Content.ReadAsStringAsync());
-                this.Context.Items.Add("SuccessMessage", "Registered Successfully..! Please Login");
+                this.Context.Items.Add("SuccessMessage", response.message);
                 Server.Transfer("/Login.aspx", true);
             }
         }
