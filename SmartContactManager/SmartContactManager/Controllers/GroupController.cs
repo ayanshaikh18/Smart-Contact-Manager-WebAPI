@@ -27,9 +27,10 @@ namespace SmartContactManager.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Group>> GetAllgroups()
+        [Route("allGroups/{userId}")]
+        public ActionResult<IEnumerable<Group>> GetAllgroups(int userId)
         {
-            var groups = _groupRepository.GetAllGroups();
+            var groups = _groupRepository.GetAllGroups(userId);
             return Ok(groups);
         }
 

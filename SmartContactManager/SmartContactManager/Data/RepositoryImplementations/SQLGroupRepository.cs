@@ -33,9 +33,9 @@ namespace SmartContactManager.Data.RepositoryImplementations
             db.SaveChanges();
         }
 
-        public IEnumerable<Group> GetAllGroups()
+        public IEnumerable<Group> GetAllGroups(int userId)
         {
-            return db.Groups.ToList();
+            return db.Groups.Where(grp=>grp.UserId==userId).ToList();
         }
 
         public Group GetGroupById(int id)
