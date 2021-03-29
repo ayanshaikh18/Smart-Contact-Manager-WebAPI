@@ -74,7 +74,7 @@ namespace SmartContactManager.Controllers
             {
                 var grp = _groupRepository.GetGroupById(group.Id);
                 if (grp == null)
-                    return StatusCode(401,(new { status = 401, isSuccess = false, message = "Group not found" }));
+                    return StatusCode(404,(new { status = 401, isSuccess = false, message = "Group not found" }));
 
                 if (grp.UserId != group.UserId)
                     return StatusCode(401,(new { status = 401, isSuccess = false, message = "Access Denied" }));
@@ -106,7 +106,7 @@ namespace SmartContactManager.Controllers
                 _groupRepository.DeleteGroup(grp);
                 return Ok();
             }
-            return BadRequest(new { Error="Group Not Found" });
+            return NotFound();
         }
 
         [HttpPost]
