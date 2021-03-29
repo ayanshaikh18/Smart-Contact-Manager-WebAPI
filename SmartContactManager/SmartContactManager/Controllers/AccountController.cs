@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SmartContactManager.Data.RepositoryInterfaces;
 using SmartContactManager.Models;
 using SmartContactManager.Models.ViewModels;
@@ -24,7 +25,8 @@ namespace SmartContactManager.Controllers
         // GET: api/Account
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
-            return Ok(_accountRepository.GetAllUsers());
+            var users = _accountRepository.GetAllUsers();
+            return Ok(users);
         }
 
 
@@ -35,9 +37,8 @@ namespace SmartContactManager.Controllers
             User user = _accountRepository.FindUserById(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
-
             return Ok(user);
         }
 
@@ -53,13 +54,13 @@ namespace SmartContactManager.Controllers
 
             if (id != user.Id)
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError,"Invalid request");
             }
 
             User updatedUser = _accountRepository.FindUserById(id);
             if (updatedUser == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "User not found" });
+                return NotFound("User not found");
             }
 
             updatedUser.Name = user.Name;
@@ -73,14 +74,14 @@ namespace SmartContactManager.Controllers
             {
                 if (_accountRepository.FindUserById(id) == null)
                 {
-                    return NotFound();
+                    return NotFound("User not found");
                 }
                 else
                 {
                     throw;
                 }
             }
-            return Ok(new { status = 200, isSuccess = true, message = "User details modified" });
+            return Ok();
         }
 
 
@@ -101,9 +102,10 @@ namespace SmartContactManager.Controllers
             }
             catch (DbUpdateException Ex)
             {
-                string message = "User already exist with given email";
+                /*string message = "User already exist with given email";
                 ModelState.AddModelError("Error", message);
-                return BadRequest(ModelState);
+                return BadRequest(ModelState);*/
+                return StatusCode(StatusCodes.Status500InternalServerError, "User already exist with given email");
             }
             return Ok(newUser);
         }
@@ -118,16 +120,17 @@ namespace SmartContactManager.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_accountRepository.GetUserByUsernameAndPassword(user.Email,user.Password) == null)
+            if (_accountRepository.GetUserByUsernameAndPassword(user.Email, user.Password) == null)
             {
                 /*string message = "Invalid Credentials";
                 ModelState.AddModelError("Error", message);
                 return BadRequest(ModelState);*/
-                return Ok(new { status = 401, isSuccess = false, message = "Invalid User Credentials" });
+                return StatusCode(StatusCodes.Status500InternalServerError, "Invalid User Credentials");
             }
 
             User loggedUser = _accountRepository.GetUserByUsername(user.Email);
-            return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", UserDetails = loggedUser });
+            //return Ok(new { message = "User Login successfully", data = loggedUser });
+            return Ok(loggedUser);
         }
 
 
@@ -144,12 +147,12 @@ namespace SmartContactManager.Controllers
             User user = _accountRepository.FindUserById(model.UserId);
             if (user == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "User not found" });
+                return NotFound("User not found");
             }
 
-            if(user.Password != model.OldPassword)
+            if (user.Password != model.OldPassword)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "Invalid Old Password" });
+                return StatusCode(StatusCodes.Status500InternalServerError, "Invalid Old Password");
             }
 
             user.Password = model.Password;
@@ -162,14 +165,14 @@ namespace SmartContactManager.Controllers
             {
                 if (_accountRepository.FindUserById(model.UserId) == null)
                 {
-                    return NotFound();
+                    return NotFound("User not found");
                 }
                 else
                 {
                     throw;
                 }
             }
-            return Ok(new { status = 200, isSuccess = true, message = "Password is successfully changed" });
+            return Ok();
         }
     }
 }
