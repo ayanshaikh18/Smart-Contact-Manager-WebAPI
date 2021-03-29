@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="Content/bootstrap.min.css" rel="stylesheet">
 
-    <style>+
+    <style>
+        +
         body {
             background: #F3F3F3
         }
@@ -49,12 +50,12 @@
             position: relative;
             min-height: 100%;
         }
-        body{
+
+        body {
             bottom: 100px;
         }
 
         .footer {
-
             position: absolute;
             left: 0;
             bottom: 0;
@@ -89,8 +90,8 @@
                 </li>
             </ul>
             <%}
-            else
-            { %>
+                else
+                { %>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="/Dashboard.aspx">Dashboard</a>
@@ -114,16 +115,18 @@
         </asp:ContentPlaceHolder>
     </div>
 
-    <br /><br />
+    <br />
+    <br />
     <div class="footer bg-dark text-light">
-       <div class="container text-center">
+        <div class="container text-center">
             &copy; 2021 - Contact Book - <span>Developers : Jwalit Shah & Mahammadayan Shaikh</span>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
-    
+    <script src="https://use.fontawesome.com/a3df2a278d.js"></script>
+
     <asp:ContentPlaceHolder ID="Scripts" runat="server">
     </asp:ContentPlaceHolder>
 
