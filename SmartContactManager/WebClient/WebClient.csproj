@@ -149,6 +149,11 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Logout.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Contacts\ContactList.aspx" />
+    <Content Include="Contacts\DeleteContact.aspx" />
+    <Content Include="Contacts\EditContact.aspx" />
+    <Content Include="Contacts\NewContact.aspx" />
+    <Content Include="Contacts\ViewContact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -224,6 +229,7 @@
     </Compile>
     <Compile Include="AccessDenied.aspx.designer.cs">
       <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -261,6 +267,41 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Contacts\ContactList.aspx.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts\ContactList.aspx.designer.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\DeleteContact.aspx.cs">
+      <DependentUpon>DeleteContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts\DeleteContact.aspx.designer.cs">
+      <DependentUpon>DeleteContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\EditContact.aspx.cs">
+      <DependentUpon>EditContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts\EditContact.aspx.designer.cs">
+      <DependentUpon>EditContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\NewContact.aspx.cs">
+      <DependentUpon>NewContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts\NewContact.aspx.designer.cs">
+      <DependentUpon>NewContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\ViewContact.aspx.cs">
+      <DependentUpon>ViewContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts\ViewContact.aspx.designer.cs">
+      <DependentUpon>ViewContact.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -357,7 +398,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Contacts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

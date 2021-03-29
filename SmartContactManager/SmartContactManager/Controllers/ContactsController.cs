@@ -38,6 +38,19 @@ namespace SmartContactManager.Controllers
         }
 
 
+        // GET: api/Contact
+        [HttpGet]
+        [Route("user/{id}")]
+        public ActionResult<IEnumerable<Contact>> GetAllContactsByUserId(int id)
+        {
+            IEnumerable<Contact> contacts = _contactRepository.GetAllContacts().Where(c => c.UserId == id);
+            foreach (var item in contacts)
+            {
+                item.User = _accountRepository.FindUserById(item.UserId);
+            }
+            return Ok(contacts);
+        }
+
 
         // GET: api/Contact/5
         [HttpGet("{id}")]
@@ -47,7 +60,7 @@ namespace SmartContactManager.Controllers
             contact.User = _accountRepository.FindUserById(contact.UserId);
             if (contact == null)
             {
-                return NotFound(new { message = "Contact not found" });
+                return NotFound("Contact not found");
             }
 
             return Ok(contact);
