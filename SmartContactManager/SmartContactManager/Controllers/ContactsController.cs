@@ -34,7 +34,7 @@ namespace SmartContactManager.Controllers
             {
                 item.User = _accountRepository.FindUserById(item.UserId);
             }
-            return Ok(_contactRepository.GetAllContacts());
+            return Ok(contacts);
         }
 
 
@@ -47,7 +47,7 @@ namespace SmartContactManager.Controllers
             contact.User = _accountRepository.FindUserById(contact.UserId);
             if (contact == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Contact not found" });
             }
 
             return Ok(contact);
@@ -67,7 +67,7 @@ namespace SmartContactManager.Controllers
             User user = _accountRepository.FindUserById((int)contact.UserId);
             if (user == null)
             {
-                return StatusCode(401, (new { status = 401, isSuccess = false, message = "User not found" }));
+                return NotFound("User not found");
             }
 
             Contact newContact;
@@ -77,9 +77,7 @@ namespace SmartContactManager.Controllers
             }
             catch (DbUpdateException Ex)
             {
-                string message = "Contact already exist";
-                ModelState.AddModelError("Error", message);
-                return BadRequest(ModelState);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Contact already exits");
             }
 
             return Ok(newContact);
@@ -98,19 +96,19 @@ namespace SmartContactManager.Controllers
 
             if (id != contact.Id)
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError, "Invalid request");
             }
 
             Contact updatedContact = _contactRepository.GetContactById(id);
             if (updatedContact == null)
             {
-                return StatusCode(401, (new { status = 401, isSuccess = false, message = "Contact not found" }));
+                return NotFound("Contact not found");
             }
             User user = _accountRepository.FindUserById((int)contact.UserId);
             bool doesBelongsToUser = _contactRepository.DoesBelongsToUser(updatedContact, (int)contact.UserId);
             if (user == null || !doesBelongsToUser)
             {
-                return StatusCode(401, (new { status = 401, isSuccess = false, message = "Access Denied" }));
+                return Unauthorized("Access Denied");
             }
 
             updatedContact.Name = contact.Name;
@@ -126,30 +124,29 @@ namespace SmartContactManager.Controllers
             {
                 if (_contactRepository.GetContactById(id) == null)
                 {
-                    return NotFound();
+                    return NotFound("Contact not found");
                 }
                 else
                 {
-                    ModelState.AddModelError("Error", "Contact already exist");
-                    return BadRequest(ModelState);
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Contact already exist");
                 }
             }
-            return Ok(new { status = 200, isSuccess = true, message = "Contact details modified" });
+            return Ok(updatedContact);
         }
 
 
 
         // DELETE: api/contacts/5
         [HttpDelete("{id}")]
-        public ActionResult<Contact> DeleteContact(int id)
+        public ActionResult DeleteContact(int id)
         {
             Contact contact = _contactRepository.GetContactById(id);
             if (contact == null)
             {
-                return NotFound();
+                return NotFound("Contact not found");
             }
             contact = _contactRepository.DeleteContact(contact);
-            return contact;
+            return Ok(contact);
         }
 
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,7 +15,11 @@ namespace WebClient.Account
 {
     public partial class Register : System.Web.UI.Page
     {
-        static HttpClient client = new HttpClient(); 
+        static HttpClient client = new HttpClient();
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             client.DefaultRequestHeaders.Accept.Clear();
@@ -33,14 +38,24 @@ namespace WebClient.Account
             var serializeduser = JsonConvert.SerializeObject(user);
             var content = new StringContent(serializeduser, Encoding.UTF8, "application/json");
             var result = await client.PostAsync("https://localhost:44373/api/account/register", content);
-            RootObject response = JsonConvert.DeserializeObject<RootObject>(await result.Content.ReadAsStringAsync());
 
-            // validation of input remains ---> Badrequest in Register api
-            //model state validation remaining
-            if (response.isSuccess)
+            if (result.IsSuccessStatusCode)
             {
-                this.Context.Items.Add("SuccessMessage", response.message);
-                Server.Transfer("/Login.aspx", true);
+                this.Context.Items.Add("SuccessMessage", "Registered successfully..! Please login");
+                Server.Transfer("/Account/Login.aspx", true);
+            }
+            else
+            {
+                string response = JsonConvert.DeserializeObject<String>(await result.Content.ReadAsStringAsync());
+                this.Context.Items.Add("ErrorMessage", response);
+                ErrorMessage.Text = response;
+
+                if ((int)result.StatusCode == 400)
+                {
+                    string errors;
+                    errors = await Errors.getErrors(result);
+                    ErrorMessage.Text = errors;
+                }
             }
         }
     }

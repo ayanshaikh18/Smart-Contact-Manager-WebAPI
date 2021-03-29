@@ -13,7 +13,7 @@ namespace WebClient.Account
         {
             Session.Clear();
             this.Context.Items.Add("SuccessMessage", "Logout Successfully!!!");
-            Server.Transfer("/Login.aspx", true);
+            Server.Transfer("~/Account/Login.aspx", true);
         }
     }
 }
