@@ -21,7 +21,7 @@
             </div>
             
             <div class="col-md-6 col-xl-6 mt-sm-4">
-                <a href="GroupList.aspx" id="GroupListCard">
+                <a href="/Groups/GroupList.aspx" id="GroupListCard">
                 <div class="card shadow border-success border-top-0 border-bottom-0 border-right-0 py-2" style="border-width:5px !important">
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
