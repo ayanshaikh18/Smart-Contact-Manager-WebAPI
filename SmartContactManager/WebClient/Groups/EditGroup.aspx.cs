@@ -21,19 +21,19 @@ namespace WebClient.Groups
         {
             if (!Page.IsPostBack)
             {
-                /*if (Session["UserID"] == null)
+                if (Session["UserID"] == null)
                 {
-                    this.Context.Items.Add("ErrorMessage", "Access Denied! Please Login");
-                    Server.Transfer("~/Login.aspx");
-                }*/
+                    this.Context.Items.Add("ErrorMessage", "Please Login");
+                    Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
+                    return;
+                }
                 if (Request.QueryString["GroupId"] == null)
                 {
                     Response.Redirect("~/404.aspx", false);
                     return;
                 }
                 groupId = Int32.Parse(Request.QueryString["GroupId"]);
-                /*userId = Int32.Parse(Session["UserId"].ToString());*/
-                userId = 1;
+                userId = Int32.Parse(Session["UserId"].ToString());
                 ViewState["GroupId"] = groupId.ToString();
                 var group = new Group();
                 group.UserId = userId;
@@ -64,8 +64,7 @@ namespace WebClient.Groups
         {
             groupId = Int32.Parse(ViewState["GroupId"].ToString());
             url = "https://localhost:44373/api/groups/";
-            /*userId = Int32.Parse(Session["UserId"].ToString());*/
-            userId = 1;
+            userId = Int32.Parse(Session["UserId"].ToString());
             var group = new Group()
             {
                 Id = groupId,
@@ -96,7 +95,7 @@ namespace WebClient.Groups
                     ErrorMessage.Text = errorMsg;
                     return;
             }
-            Response.Redirect("~/Groups/ViewGroup.aspx?GroupId=" +group.Id);
+            Response.Redirect("~/Groups/ViewGroup.aspx?GroupId=" + group.Id);
         }
     }
 }
