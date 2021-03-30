@@ -118,7 +118,7 @@ namespace SmartContactManager.Controllers
                 var grp = _groupRepository.GetGroupById(model.GroupId??0);
 
                 if(grp == null)
-                    return StatusCode(401, (new { status = 401, isSuccess = false, message = "Group not found" }));
+                    return StatusCode(404, (new { status = 404, isSuccess = false, message = "Group not found" }));
 
                 IList<GroupContact> groupContacts = new List<GroupContact>();
                 foreach (var contactId in model.ContactIds)

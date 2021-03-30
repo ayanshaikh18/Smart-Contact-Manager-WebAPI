@@ -12,11 +12,12 @@ namespace WebClient.Groups
     {
         protected async void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["UserID"] == null)
+            if (Session["UserID"] == null)
             {
-                this.Context.Items.Add("ErrorMessage", "Access Denied! Please Login");
-                Server.Transfer("~/Login.aspx");
-            }*/
+                this.Context.Items.Add("ErrorMessage", "Please Login");
+                Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
+                return;
+            }
             if (Request.QueryString["Id"] == null)
             {
                 Response.Redirect("~/404.aspx");
