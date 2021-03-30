@@ -70,7 +70,7 @@ namespace WebClient.Account
             int j = 0;
             foreach (var group in groups)
             {
-                var groupUrl = "/Groups//ViewGroup.aspx?GroupId=" + group.Id;
+                var groupUrl = "/Groups/ViewGroup.aspx?GroupId=" + group.Id;
                 TableCell seqNo = new TableCell();
                 TableCell groupName = new TableCell();
                 TableCell viewGroupButton = new TableCell();
