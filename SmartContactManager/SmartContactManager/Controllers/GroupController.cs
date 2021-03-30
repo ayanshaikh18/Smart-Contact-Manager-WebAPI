@@ -27,9 +27,10 @@ namespace SmartContactManager.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Group>> GetAllgroups()
+        [Route("allGroups/{userId}")]
+        public ActionResult<IEnumerable<Group>> GetAllgroups(int userId)
         {
-            var groups = _groupRepository.GetAllGroups();
+            var groups = _groupRepository.GetAllGroups(userId);
             return Ok(groups);
         }
 
@@ -73,7 +74,7 @@ namespace SmartContactManager.Controllers
             {
                 var grp = _groupRepository.GetGroupById(group.Id);
                 if (grp == null)
-                    return StatusCode(401,(new { status = 401, isSuccess = false, message = "Group not found" }));
+                    return StatusCode(404,(new { status = 401, isSuccess = false, message = "Group not found" }));
 
                 if (grp.UserId != group.UserId)
                     return StatusCode(401,(new { status = 401, isSuccess = false, message = "Access Denied" }));
@@ -105,7 +106,7 @@ namespace SmartContactManager.Controllers
                 _groupRepository.DeleteGroup(grp);
                 return Ok();
             }
-            return BadRequest(new { Error="Group Not Found" });
+            return NotFound();
         }
 
         [HttpPost]
@@ -117,7 +118,7 @@ namespace SmartContactManager.Controllers
                 var grp = _groupRepository.GetGroupById(model.GroupId??0);
 
                 if(grp == null)
-                    return StatusCode(401, (new { status = 401, isSuccess = false, message = "Group not found" }));
+                    return StatusCode(404, (new { status = 404, isSuccess = false, message = "Group not found" }));
 
                 IList<GroupContact> groupContacts = new List<GroupContact>();
                 foreach (var contactId in model.ContactIds)

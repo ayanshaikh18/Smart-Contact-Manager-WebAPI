@@ -10,7 +10,7 @@ namespace SmartContactManager.Data.RepositoryInterfaces
     {
         Group AddGroup(Group group);
         Group GetGroupById(int id);
-        IEnumerable<Group> GetAllGroups();
+        IEnumerable<Group> GetAllGroups(int userId);
         void UpdateGroup(Group group);
         void DeleteGroup(Group group);
 
