@@ -19,11 +19,12 @@ namespace WebClient.Groups
         {
             if (!IsPostBack)
             {
-                /*if (Session["UserID"] == null)
+                if (Session["UserID"] == null)
                 {
-                    this.Context.Items.Add("ErrorMessage", "Access Denied! Please Login");
-                    Server.Transfer("~/Login.aspx");
-                }*/
+                    this.Context.Items.Add("ErrorMessage", "Please Login");
+                    Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
+                    return;
+                }
                 if (Request.QueryString["GroupId"] == null)
                 {
                     Response.Redirect("~/404.aspx",false);
@@ -31,8 +32,7 @@ namespace WebClient.Groups
                 }
                 groupId = Int32.Parse(Request.QueryString["GroupId"]);
 
-                /*userId = Int32.Parse(Session["UserId"].ToString());*/
-                userId = 1;
+                userId = Int32.Parse(Session["UserId"].ToString());
                 var group = new Group();
                 group.UserId = userId;
                 group.Id = groupId;

@@ -17,7 +17,13 @@ namespace WebClient.Groups
         string url = "https://localhost:44373/api/groups/";
         protected async void Page_Load(object sender, EventArgs e)
         {
-            int userId = 1;
+            if (Session["UserID"] == null)
+            {
+                this.Context.Items.Add("ErrorMessage", "Please Login");
+                Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
+                return;
+            }
+            var userId = Int32.Parse(Session["UserId"].ToString());
             if (Request.QueryString["GroupId"] == null)
             {
                 Response.Redirect("~/404.aspx",false);

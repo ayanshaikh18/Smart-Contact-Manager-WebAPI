@@ -15,6 +15,9 @@
                     <div class="card-header text-center">
                         <h4 class="text-primary">Add Contacts</h4>
                     </div>
+                    <div class="text-danger text-center">
+                        <asp:Label ID="ErrorMessage" runat="server" CssClass="text-center" Text=""></asp:Label>
+                    </div>
                     <div class="card-body">
                         <asp:ListBox ID="GroupContacts" runat="server" CssClass="form-group"
                             Width="100%" Rows="10" SelectionMode="Multiple"></asp:ListBox>
