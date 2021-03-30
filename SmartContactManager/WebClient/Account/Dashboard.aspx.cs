@@ -36,16 +36,16 @@ namespace WebClient.Account
             var resultContact = await client.GetAsync("https://localhost:44373/api/contacts/user/" + UserId.ToString());
             Contact[] contacts = JsonConvert.DeserializeObject<Contact[]>(await resultContact.Content.ReadAsStringAsync());
 
-            var resultGroup = await client.GetAsync("https://localhost:44373/api/groups");
-            Group[] groups = JsonConvert.DeserializeObject<Group[]>(await resultGroup.Content.ReadAsStringAsync());
+            var resultGroup = await client.GetAsync("https://localhost:44373/api/groups/allGroups/"+UserId.ToString());
+            var groups = JsonConvert.DeserializeObject<IEnumerable<Group>>(await resultGroup.Content.ReadAsStringAsync());
 
             var totalContacts = contacts.Length;
             var minContactsLength = (totalContacts >= 3) ? 3 : totalContacts;
-            //var totalGroups = groups.Length;
-            //var minGroupsLength = (totalGroups >= 3) ? 3 : totalGroups;
+            var totalGroups = groups.Count();
+            var minGroupsLength = (totalGroups >= 3) ? 3 : totalGroups;
 
             ContactLength.Text = totalContacts.ToString();
-            //GroupLength.Text = totalGroups.ToString();
+            GroupLength.Text = totalGroups.ToString();
 
             for (int i = 0; i < minContactsLength; i++)
             {
@@ -67,16 +67,16 @@ namespace WebClient.Account
                 row.Cells.Add(viewContactButton);
                 ContactsList.Rows.Add(row);
             }
-
-            /*for (int i = 0; i < minGroupsLength; i++)
+            int j = 0;
+            foreach (var group in groups)
             {
-                var groupUrl = "ViewGroup.aspx?GroupId=" + groups[i].Id;
+                var groupUrl = "/Groups//ViewGroup.aspx?GroupId=" + group.Id;
                 TableCell seqNo = new TableCell();
                 TableCell groupName = new TableCell();
                 TableCell viewGroupButton = new TableCell();
 
-                seqNo.Text = "" + (i + 1);
-                groupName.Text = groups[i].Name;
+                seqNo.Text = "" + (j + 1);
+                groupName.Text = group.Name;
                 viewGroupButton.Text = ("<a class='btn btn-primary' href=" + groupUrl + ">View</a>");
 
                 TableRow row = new TableRow();
@@ -85,7 +85,8 @@ namespace WebClient.Account
                 row.Cells.Add(groupName);
                 row.Cells.Add(viewGroupButton);
                 GroupList.Rows.Add(row);
-            }*/
+                j++;
+            }
         }
     }
 }
