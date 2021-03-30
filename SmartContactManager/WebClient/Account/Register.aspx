@@ -75,7 +75,7 @@
 
                                 <div class="text-block text-center my-3">
                                     <span class="text-small font-weight-semibold">Already a member ?</span>
-                                    <a href="Login.aspx" class="text-black text-small">Login</a>
+                                    <a href="/Account/Login.aspx" class="text-black text-small">Login</a>
                                 </div>
                             </form>
                         </div>

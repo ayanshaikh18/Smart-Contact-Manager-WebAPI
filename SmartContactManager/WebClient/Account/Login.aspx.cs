@@ -86,17 +86,18 @@ namespace WebClient.Account
             }
             else
             {
-                string response = JsonConvert.DeserializeObject<String>(await result.Content.ReadAsStringAsync());
-                SuccessMessage.Visible = false;
-                ErrorMessage.Visible = true;
-                ErrorMessage.Text = response;
-
                 if ((int)result.StatusCode == 400)
                 {
                     string errors;
                     errors = await Errors.getErrors(result);
                     ErrorMessage.Text = errors;
+                    return false;
                 }
+
+                string response = JsonConvert.DeserializeObject<String>(await result.Content.ReadAsStringAsync());
+                SuccessMessage.Visible = false;
+                ErrorMessage.Visible = true;
+                ErrorMessage.Text = response;
                 return false;
             }
         }

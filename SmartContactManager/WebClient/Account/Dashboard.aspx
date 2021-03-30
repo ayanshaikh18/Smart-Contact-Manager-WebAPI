@@ -5,15 +5,15 @@
         <div class="row m-sm-4">
             
             <div class="col-md-6 col-xl-6 mt-sm-4">
-                <a href="ContactList.aspx" id="ContactListCard">
+                <a href="/Contacts/ContactList.aspx" id="ContactListCard">
                 <div class="card shadow border-left-primary rounded-bottom py-2">
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
-                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>My Contacts</span></div>
-                                <div class="text-dark font-weight-bold h5 mb-0"><asp:Label ID="ContactLength" runat="server"></asp:Label></div>
+                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>My Contacts</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><asp:Label ID="ContactLength" runat="server">0</asp:Label></div>
                             </div>
-                            <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                            <div class="col-auto"><i class="fa fa-user fa-2x text-gray-300 text-info"></i></div>
                         </div>
                     </div>
                 </div>
@@ -27,9 +27,9 @@
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>My Groups</span></div>
-                                <div class="text-dark font-weight-bold h5 mb-0"><asp:Label ID="GroupLength" runat="server"></asp:Label></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><asp:Label ID="GroupLength" runat="server">0</asp:Label></div>
                             </div>
-                            <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                            <div class="col-auto"><i class="fa fa-users fa-2x text-gray-300 text-success"></i></div>
                         </div>
                     </div>
                 </div>

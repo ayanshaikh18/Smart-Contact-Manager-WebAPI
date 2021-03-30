@@ -25,7 +25,7 @@ namespace WebClient.Account
             if (Session["UserID"] == null)
             {
                 this.Context.Items.Add("ErrorMessage", "Please Login");
-                Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false); //not working
+                Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
                 return;
             }
 
@@ -33,7 +33,7 @@ namespace WebClient.Account
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var UserId = Int32.Parse(Session["UserId"].ToString());
-            var resultContact = await client.GetAsync("https://localhost:44373/api/contacts");
+            var resultContact = await client.GetAsync("https://localhost:44373/api/contacts/user/" + UserId.ToString());
             Contact[] contacts = JsonConvert.DeserializeObject<Contact[]>(await resultContact.Content.ReadAsStringAsync());
 
             var resultGroup = await client.GetAsync("https://localhost:44373/api/groups");
@@ -41,15 +41,15 @@ namespace WebClient.Account
 
             var totalContacts = contacts.Length;
             var minContactsLength = (totalContacts >= 3) ? 3 : totalContacts;
-            var totalGroups = groups.Length;
-            var minGroupsLength = (totalGroups >= 3) ? 3 : totalGroups;
+            //var totalGroups = groups.Length;
+            //var minGroupsLength = (totalGroups >= 3) ? 3 : totalGroups;
 
             ContactLength.Text = totalContacts.ToString();
-            GroupLength.Text = totalGroups.ToString();
+            //GroupLength.Text = totalGroups.ToString();
 
             for (int i = 0; i < minContactsLength; i++)
             {
-                var contactUrl = "ViewContact.aspx?ContactId=" + contacts[i].Id;
+                var contactUrl = "/Contacts/ViewContact.aspx?ContactId=" + contacts[i].Id;
                 TableCell seqNo = new TableCell();
                 TableCell contactName = new TableCell();
                 TableCell contactPhoneno = new TableCell();
@@ -68,7 +68,7 @@ namespace WebClient.Account
                 ContactsList.Rows.Add(row);
             }
 
-            for (int i = 0; i < minGroupsLength; i++)
+            /*for (int i = 0; i < minGroupsLength; i++)
             {
                 var groupUrl = "ViewGroup.aspx?GroupId=" + groups[i].Id;
                 TableCell seqNo = new TableCell();
@@ -85,7 +85,7 @@ namespace WebClient.Account
                 row.Cells.Add(groupName);
                 row.Cells.Add(viewGroupButton);
                 GroupList.Rows.Add(row);
-            }
+            }*/
         }
     }
 }

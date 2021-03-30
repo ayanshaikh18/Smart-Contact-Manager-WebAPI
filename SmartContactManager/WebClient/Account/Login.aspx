@@ -50,7 +50,7 @@
                                 </div>-->
                                 <div class="text-block text-center mb-3">
                                     <span class="text-small font-weight-semibold">Not a member ?</span>
-                                    <a href="/Register.aspx" class="text-black text-small">Create new account</a>
+                                    <a href="/Account/Register.aspx" class="text-black text-small">Create new account</a>
                                 </div>
                             </form>
                         </div>
