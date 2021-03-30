@@ -6,7 +6,7 @@
             
             <div class="col-md-6 col-xl-6 mt-sm-4">
                 <a href="/Contacts/ContactList.aspx" id="ContactListCard">
-                <div class="card shadow border-left-primary rounded-bottom py-2">
+                <div class="card shadow border-primary border-top-0 border-bottom-0 border-right-0 rounded-bottom py-2" style="border-width:5px !important">
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
@@ -22,7 +22,7 @@
             
             <div class="col-md-6 col-xl-6 mt-sm-4">
                 <a href="GroupList.aspx" id="GroupListCard">
-                <div class="card shadow border-left-success py-2">
+                <div class="card shadow border-success border-top-0 border-bottom-0 border-right-0 py-2" style="border-width:5px !important">
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
