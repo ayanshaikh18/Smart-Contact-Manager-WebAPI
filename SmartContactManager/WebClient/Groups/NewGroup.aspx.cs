@@ -18,7 +18,12 @@ namespace WebClient.Groups
         string url = "https://localhost:44373/api/groups/";
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["UserID"] == null)
+            {
+                this.Context.Items.Add("ErrorMessage", "Please Login");
+                Response.Redirect("/Account/Login.aspx?msg=Please Login..!", false);
+                return;
+            }
         }
 
         protected async void SubmitButton_Click(object sender, EventArgs e)
@@ -26,7 +31,7 @@ namespace WebClient.Groups
             var group = new Group();
             group.Name = Name.Text;
             group.Description = Description.Text;
-            group.UserId = 1;
+            group.UserId = Int32.Parse(Session["UserId"].ToString());
 
             var serializedGroup = JsonConvert.SerializeObject(group);
             var content = new StringContent(serializedGroup, Encoding.UTF8, "application/json");
