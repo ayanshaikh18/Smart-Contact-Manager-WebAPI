@@ -65,7 +65,7 @@ namespace WebClient.Groups
                 seqNo.Text = "" + (i + 1);
                 ContactId.Text = grpContact.Contact.Name;
                 PhoneNumber.Text = grpContact.Contact.PhoneNumber;
-                button.Text = ("<a class='btn btn-primary' href='/ViewContact.aspx?ContactId=" + grpContact.Contact.Id.ToString() + "'>View Contact</a>");
+                button.Text = ("<a class='btn btn-primary' href='/Contacts/ViewContact.aspx?ContactId=" + grpContact.Contact.Id.ToString() + "'>View Contact</a>");
                 removeButton.Text = "<a class='btn btn-danger' href='/Groups/DeleteGroupContact.aspx?Id="+grpContact.Id + "&GroupId="+groupId+"' onclick='remove'>Remove From Group</a>";
                 TableRow row = new TableRow();
                 row.Cells.Add(seqNo);

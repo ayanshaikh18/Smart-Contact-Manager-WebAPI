@@ -29,7 +29,7 @@ namespace WebClient.Groups
 
             int GroupId = Int32.Parse(Request.QueryString["GroupId"]);
 
-            Response.Redirect("~/Groups/ViewGroup.aspx?GroupId=" + GroupId);
+            Response.Redirect("~/Groups/ViewGroup.aspx?GroupId="+GroupId);
         }
     }
 }
