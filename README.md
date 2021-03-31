@@ -10,8 +10,7 @@ functionalities & get benefits of the provided features.
 
 ## Technology / Platform / Tools used Technology 
 
-### Technology
-> - WCF framework 
+### Technology 
 > - Dot net core WEB API framework
 > - ASP.NET framework
 > - SQL Server database
@@ -23,3 +22,6 @@ functionalities & get benefits of the provided features.
 
 ### Tools
 > - Visual Studio
+
+<br>
+Design & Developed by : <span style="color:red">Mahammadayan Shaikh and Jwalit Shah</span>
