@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebClient.Models;
+using WebClient.Models.ViewModels;
 
 namespace WebClient.Groups
 {
@@ -53,9 +54,14 @@ namespace WebClient.Groups
                 group = JsonConvert.DeserializeObject<Group>(await result.Content.ReadAsStringAsync());
                 if (userId != group.UserId)
                     Server.Transfer("~/AccessDenied.aspx");
+
+                result = await client.GetAsync("https://localhost:44373/api/groups/getGroupContacts/" + groupId);
+                var grpContactViewModel = JsonConvert.DeserializeObject<IEnumerable<GroupContactViewModel>>(await result.Content.ReadAsStringAsync());
+
+
                 GrpData.Text = "Name :- " + group.Name +
                                 "<br>Description :- " + group.Description +
-                                "<br>Total Contacts :- " + 5;
+                                "<br>Total Contacts :- " + grpContactViewModel.ToList().Count();
 
                 ViewState["GroupId"] = groupId.ToString();
 
